@@ -79,6 +79,7 @@ class _MyHomePageState<D> extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            TextFormField(onChanged: bloc.setPalindromeString),
             Text('Is palindrome=${screenData.isPalindrome}'),
           ],
         ),

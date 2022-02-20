@@ -1,7 +1,10 @@
 class HomeData {
-  bool? isPalindrome = null;
+  bool? isPalindrome;
+  String palindromeInput = '';
 
-  HomeData(this.isPalindrome);
+  HomeData(this.isPalindrome, this.palindromeInput);
 
-  HomeData copy() => HomeData(isPalindrome);
+  factory HomeData.init() => HomeData(null, '');
+
+  HomeData copy() => HomeData(isPalindrome, palindromeInput);
 }

@@ -3,15 +3,19 @@ import 'package:presentation/base/base_bloc.dart';
 import 'package:presentation/screen/home_data.dart';
 
 abstract class HomeBloc extends BaseBloc {
-  factory HomeBloc(PalindromeUseCase palindromeUseCase,) =>
+  factory HomeBloc(
+    PalindromeUseCase palindromeUseCase,
+  ) =>
       _HomeBloc(palindromeUseCase);
 
   void checkPalindrome();
+
+  void setPalindromeString(String palindrome);
 }
 
 class _HomeBloc extends BlocImpl implements HomeBloc {
   final PalindromeUseCase _palindromeUseCase;
-  final _screenData = HomeData(null);
+  final _screenData = HomeData.init();
 
   bool _isLoading = false;
 
@@ -28,7 +32,9 @@ class _HomeBloc extends BlocImpl implements HomeBloc {
     _isLoading = true;
     updateData();
 
-    _screenData.isPalindrome = await _palindromeUseCase("");
+    _screenData.isPalindrome = await _palindromeUseCase(
+      _screenData.palindromeInput,
+    );
     _isLoading = false;
     updateData();
   }
@@ -44,5 +50,10 @@ class _HomeBloc extends BlocImpl implements HomeBloc {
       isLoading: _isLoading,
       data: _screenData.copy(),
     );
+  }
+
+  @override
+  void setPalindromeString(String palindrome) {
+    _screenData.palindromeInput = palindrome;
   }
 }
