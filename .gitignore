@@ -45,3 +45,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 /packages/domain/pubspec.lock
+/packages/presentation/pubspec.lock
+/packages/data/pubspec.lock

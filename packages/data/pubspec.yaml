@@ -1,5 +1,5 @@
-name: presentation
-description: Presentation layer
+name: data
+description: Data layer
 publish_to: none
 
 environment:
@@ -9,6 +9,5 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  data:
-    path: ../data
+  domain:
+    path: ../domain

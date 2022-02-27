@@ -1,6 +1,6 @@
-import 'package:domain/usecase/palindrome_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get_it/get_it.dart';
 import 'package:presentation/base/bloc_data.dart';
 import 'package:presentation/screen/home_bloc.dart';
 import 'package:presentation/screen/home_data.dart';
@@ -30,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState<D> extends State<MyHomePage> {
-  HomeBloc bloc = HomeBloc(PalindromeUseCase());
+  final bloc = GetIt.I.get<HomeBloc>();
 
   void _incrementCounter() {
     bloc.checkPalindrome();
