@@ -47,3 +47,4 @@ app.*.map.json
 /packages/domain/pubspec.lock
 /packages/presentation/pubspec.lock
 /packages/data/pubspec.lock
+/pubspec.lock
