@@ -1,7 +1,7 @@
-import 'package:domain/usecase/palindrome_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:presentation/base/bloc_data.dart';
+import 'package:presentation/base/bloc_state.dart';
 import 'package:presentation/screen/home_bloc.dart';
 import 'package:presentation/screen/home_data.dart';
 
@@ -9,15 +9,13 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      );
 }
 
 class MyHomePage extends StatefulWidget {
@@ -29,10 +27,8 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState<D> extends State<MyHomePage> {
-  HomeBloc bloc = HomeBloc(PalindromeUseCase());
-
-  void _incrementCounter() {
+class _MyHomePageState<D> extends BlocState<MyHomePage, HomeBloc> {
+  void _validatePalindrome() {
     bloc.checkPalindrome();
   }
 
@@ -68,8 +64,8 @@ class _MyHomePageState<D> extends State<MyHomePage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: _validatePalindrome,
+        tooltip: 'Validate',
         child: const Icon(Icons.fingerprint),
       ),
     );
