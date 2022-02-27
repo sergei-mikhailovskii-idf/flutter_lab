@@ -48,3 +48,7 @@ app.*.map.json
 /packages/presentation/pubspec.lock
 /packages/data/pubspec.lock
 /pubspec.lock
+/lib/di/injector.config.dart
+/packages/data/lib/di/injector.config.dart
+/packages/domain/lib/di/injector.config.dart
+/packages/presentation/lib/di/injector.config.dart
