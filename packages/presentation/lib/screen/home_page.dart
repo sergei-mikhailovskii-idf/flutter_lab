@@ -1,6 +1,9 @@
 import 'package:domain/usecase/palindrome_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:presentation/base/bloc_data.dart';
+import 'package:presentation/screen/home_bloc.dart';
+import 'package:presentation/screen/home_data.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -26,13 +29,17 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  final _palindromeUseCase = PalindromeUseCase();
+class _MyHomePageState<D> extends State<MyHomePage> {
+  HomeBloc bloc = HomeBloc(PalindromeUseCase());
 
   void _incrementCounter() {
-    final isPalindrome = _palindromeUseCase('asdasd');
-    print("isPalindrome=$isPalindrome");
+    bloc.checkPalindrome();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    bloc.initState();
   }
 
   @override
@@ -41,25 +48,49 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+      body: StreamBuilder(
+        stream: bloc.dataStream,
+        initialData: BlocData.init(),
+        builder: (context, snapshot) {
+          final blocData = snapshot.data;
+          if (blocData is BlocData) {
+            final screenData = blocData.data;
+            if (blocData.isLoading) {
+              return _buildComputationState();
+            } else if (screenData is HomeData) {
+              return _buildResultState(screenData);
+            } else {
+              return Container();
+            }
+          } else {
+            return Container();
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.fingerprint),
       ),
     );
   }
+
+  Widget _buildResultState(HomeData screenData) => Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            TextFormField(onChanged: bloc.setPalindromeString),
+            Text('Is palindrome=${screenData.isPalindrome}'),
+          ],
+        ),
+      );
+
+  Widget _buildComputationState() => Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const <Widget>[
+            Text('Waiting for a result'),
+          ],
+        ),
+      );
 }
