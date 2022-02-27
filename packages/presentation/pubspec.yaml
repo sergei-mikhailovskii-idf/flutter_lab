@@ -12,3 +12,7 @@ dependencies:
 
   data:
     path: ../data
+
+dev_dependencies:
+  build_runner: ^2.1.7
+  injectable_generator: ^1.5.3

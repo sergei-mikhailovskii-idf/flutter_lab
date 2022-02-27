@@ -3,6 +3,6 @@ import 'package:flutter_lab/di/injector.dart';
 import 'package:presentation/screen/home_page.dart';
 
 void main() async {
-  await initInjector();
+  configureDependencies();
   runApp(const MyApp());
 }
