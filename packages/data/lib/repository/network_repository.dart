@@ -17,7 +17,7 @@ class NetworkRepository extends ApiBaseRepositoryImpl
   ) : super(cancelToken: _cancelToken);
 
   @override
-  Future<RegistrationResponse> getRegistration() async => _service
+  Future<RegistrationResponse> getRegistration() => _service
       .get(
         path: 'mxcc-registration/gateway/REGISTRATION/',
         cancelToken: _cancelToken,
