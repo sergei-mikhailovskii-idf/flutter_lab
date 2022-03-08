@@ -58,6 +58,21 @@ class _MyHomePageState<D> extends BlocState<MyHomePage, HomeBloc> {
               ),
             ),
           ),
+          Text(screenData.registrationStep ?? ''),
+          TextFormField(
+            keyboardType: TextInputType.emailAddress,
+            onChanged: bloc.onEmailChanged,
+            decoration: InputDecoration(
+              hintText: 'Email',
+            ),
+          ),
+          TextFormField(
+            keyboardType: TextInputType.phone,
+            onChanged: bloc.onPhoneChanged,
+            decoration: InputDecoration(
+              hintText: 'Phone',
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(left: 32, top: 16, right: 32),
             child: OutlinedButton(

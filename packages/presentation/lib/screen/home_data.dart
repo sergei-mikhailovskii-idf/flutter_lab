@@ -1,7 +1,11 @@
 class HomeData {
-  HomeData();
+  String? registrationStep;
+  String? email;
+  String? phone;
 
-  factory HomeData.init() => HomeData();
+  HomeData(this.registrationStep, this.email, this.phone);
 
-  HomeData copy() => HomeData();
+  factory HomeData.init() => HomeData(null, null, null);
+
+  HomeData copy() => HomeData(this.registrationStep, this.email, this.phone);
 }

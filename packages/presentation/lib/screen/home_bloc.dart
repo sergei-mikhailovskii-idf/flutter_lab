@@ -11,6 +11,10 @@ abstract class HomeBloc extends BaseBloc {
   void getRegistration();
 
   void sendRegistration();
+
+  void onEmailChanged(String email);
+
+  void onPhoneChanged(String phone);
 }
 
 class _HomeBloc extends BlocImpl implements HomeBloc {
@@ -30,10 +34,10 @@ class _HomeBloc extends BlocImpl implements HomeBloc {
   @override
   void getRegistration() async {
     _isLoading = true;
+    _screenData.registrationStep = 'Loading';
     _updateData();
 
-    final step = await _getRegistrationStepUseCase();
-    print(step);
+    _screenData.registrationStep = await _getRegistrationStepUseCase();
 
     _isLoading = false;
     _updateData();
@@ -47,6 +51,16 @@ class _HomeBloc extends BlocImpl implements HomeBloc {
 
   @override
   void sendRegistration() {
+  }
+
+  @override
+  void onEmailChanged(String email) {
+    _screenData.email = email;
+  }
+
+  @override
+  void onPhoneChanged(String phone) {
+    _screenData.phone = phone;
   }
 
   void _updateData() {
