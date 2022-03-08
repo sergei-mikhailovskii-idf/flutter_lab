@@ -17,13 +17,12 @@ class NetworkRepository extends ApiBaseRepositoryImpl
   ) : super(cancelToken: _cancelToken);
 
   @override
-  Future<RegistrationResponse> getRegistration(String palindrome) async {
-    return _service
-        .get(
-          path: 'mxcc-registration/gateway/REGISTRATION/',
-        )
-        .then(
-          (value) => Future.value(ApiRegistrationResponse.fromJson(value.data)),
-        );
-  }
+  Future<RegistrationResponse> getRegistration() async => _service
+      .get(
+        path: 'mxcc-registration/gateway/REGISTRATION/',
+        cancelToken: _cancelToken,
+      )
+      .then(
+        (value) => Future.value(ApiRegistrationResponse.fromJson(value.data)),
+      );
 }

@@ -1,4 +1,4 @@
-import 'package:domain/usecase/palindrome_usecase.dart';
+import 'package:domain/usecase/get_registration_use_case.dart';
 import 'package:get_it/get_it.dart';
 import 'package:presentation/screen/home_bloc.dart';
 

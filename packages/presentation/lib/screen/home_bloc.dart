@@ -1,4 +1,4 @@
-import 'package:domain/usecase/palindrome_usecase.dart';
+import 'package:domain/usecase/get_registration_use_case.dart';
 import 'package:presentation/base/base_bloc.dart';
 import 'package:presentation/screen/home_data.dart';
 
@@ -32,7 +32,7 @@ class _HomeBloc extends BlocImpl implements HomeBloc {
     _isLoading = true;
     _updateData();
 
-    final step = await _getRegistrationStepUseCase("");
+    final step = await _getRegistrationStepUseCase();
     print(step);
 
     _isLoading = false;
