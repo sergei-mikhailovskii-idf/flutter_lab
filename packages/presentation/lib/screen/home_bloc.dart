@@ -4,7 +4,7 @@ import 'package:presentation/screen/home_data.dart';
 
 abstract class HomeBloc extends BaseBloc {
   factory HomeBloc(
-    PalindromeUseCase palindromeUseCase,
+    GetRegistrationStepUseCase palindromeUseCase,
   ) =>
       _HomeBloc(palindromeUseCase);
 
@@ -14,12 +14,12 @@ abstract class HomeBloc extends BaseBloc {
 }
 
 class _HomeBloc extends BlocImpl implements HomeBloc {
-  final PalindromeUseCase _palindromeUseCase;
+  final GetRegistrationStepUseCase _getRegistrationStepUseCase;
   final _screenData = HomeData.init();
 
   bool _isLoading = false;
 
-  _HomeBloc(this._palindromeUseCase);
+  _HomeBloc(this._getRegistrationStepUseCase);
 
   @override
   void initState() {
@@ -32,9 +32,7 @@ class _HomeBloc extends BlocImpl implements HomeBloc {
     _isLoading = true;
     updateData();
 
-    _screenData.isPalindrome = await _palindromeUseCase(
-      _screenData.palindromeInput,
-    );
+    final step = await _getRegistrationStepUseCase("");
     _isLoading = false;
     updateData();
   }
@@ -42,7 +40,7 @@ class _HomeBloc extends BlocImpl implements HomeBloc {
   @override
   void dispose() {
     super.dispose();
-    _palindromeUseCase.dispose();
+    _getRegistrationStepUseCase.dispose();
   }
 
   void updateData() {
@@ -54,6 +52,5 @@ class _HomeBloc extends BlocImpl implements HomeBloc {
 
   @override
   void setPalindromeString(String palindrome) {
-    _screenData.palindromeInput = palindrome;
   }
 }

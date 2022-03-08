@@ -2,19 +2,18 @@ import 'package:domain/repository/network_repository.dart';
 
 import 'usecase.dart';
 
-class PalindromeUseCase implements UseCase<String, Future<bool>> {
+class GetRegistrationStepUseCase implements UseCase<String, Future<String?>> {
   final INetworkRepository _repository;
 
-  PalindromeUseCase(this._repository);
+  GetRegistrationStepUseCase(this._repository);
 
   @override
-  Future<bool> call(String params) async {
-    final response = await _repository.checkPalindrome(params);
-    return Future.value(response.isPalindrome);
+  Future<String?> call(String params) async {
+    _repository.getRegistration(params).then((value) => value.step);
   }
 
   @override
   void dispose() {
-    /// clearing resources
+    _repository.dispose();
   }
 }

@@ -1,11 +1,29 @@
-import 'package:domain/model/palindrome_response.dart';
+import 'package:data/service/api_service.dart';
+import 'package:dio/dio.dart';
+import 'package:domain/model/api_registration_response.dart';
+import 'package:domain/model/registration_response.dart';
 import 'package:domain/repository/network_repository.dart';
 
-class NetworkRepository implements INetworkRepository {
+import 'api_base_repository.dart';
+
+class NetworkRepository extends ApiBaseRepositoryImpl
+    implements INetworkRepository {
+  final ApiService _service;
+  final CancelToken _cancelToken;
+
+  NetworkRepository(
+    this._service,
+    this._cancelToken,
+  ) : super(cancelToken: _cancelToken);
+
   @override
-  Future<PalindromeResponse> checkPalindrome(String palindrome) async {
-    /// sending palindrome to server
-    await Future.delayed(Duration(seconds: 5));
-    return Future.value(PalindromeResponse(true));
+  Future<RegistrationResponse> getRegistration(String palindrome) async {
+    return _service
+        .get(
+          path: 'mxcc-registration/gateway/REGISTRATION/',
+        )
+        .then(
+          (value) => Future.value(ApiRegistrationResponse.fromJson(value.data)),
+        );
   }
 }

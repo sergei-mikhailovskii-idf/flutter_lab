@@ -11,3 +11,4 @@ dependencies:
     sdk: flutter
   domain:
     path: ../domain
+  dio: ^4.0.4

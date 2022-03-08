@@ -1,5 +1,7 @@
-import 'package:domain/model/palindrome_response.dart';
+import 'package:domain/model/registration_response.dart';
 
-abstract class INetworkRepository {
-  Future<PalindromeResponse> checkPalindrome(String palindrome);
+import 'base_repository.dart';
+
+abstract class INetworkRepository implements BaseRepository {
+  Future<RegistrationResponse> getRegistration(String palindrome);
 }

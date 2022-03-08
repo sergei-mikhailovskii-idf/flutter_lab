@@ -8,6 +8,6 @@ Future<void> initDomainModule() async {
 
 void _initUseCaseModule() {
   GetIt.I.registerFactory(
-    () => PalindromeUseCase(GetIt.I.get<INetworkRepository>()),
+    () => GetRegistrationStepUseCase(GetIt.I.get<INetworkRepository>()),
   );
 }

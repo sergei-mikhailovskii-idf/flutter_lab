@@ -9,7 +9,7 @@ void initPresentationModule() {
 void _initHomeScreenModule() {
   GetIt.I.registerFactory<HomeBloc>(
     () => HomeBloc(
-      GetIt.I.get<PalindromeUseCase>(),
+      GetIt.I.get<GetRegistrationStepUseCase>(),
     ),
   );
 }

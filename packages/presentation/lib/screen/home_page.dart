@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:presentation/base/bloc_data.dart';
 import 'package:presentation/base/bloc_state.dart';
+import 'package:presentation/base/stream_platform_stack_content.dart';
 import 'package:presentation/screen/home_bloc.dart';
 import 'package:presentation/screen/home_data.dart';
 
@@ -40,34 +40,14 @@ class _MyHomePageState<D> extends BlocState<MyHomePage, HomeBloc> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: StreamBuilder(
-        stream: bloc.dataStream,
-        initialData: BlocData.init(),
-        builder: (context, snapshot) {
-          final blocData = snapshot.data;
-          if (blocData is BlocData) {
-            final screenData = blocData.data;
-            if (blocData.isLoading) {
-              return _buildComputationState();
-            } else if (screenData is HomeData) {
-              return _buildResultState(screenData);
-            } else {
-              return Container();
-            }
-          } else {
-            return Container();
-          }
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _validatePalindrome,
-        tooltip: 'Validate',
-        child: const Icon(Icons.fingerprint),
-      ),
+    return StreamPlatformStackContent(
+      dataStream: bloc.dataStream,
+      children: (blocData) {
+        final screenData = blocData.data;
+        if (screenData is HomeData) {
+          return _buildResultState(screenData);
+        }
+      },
     );
   }
 
@@ -75,8 +55,15 @@ class _MyHomePageState<D> extends BlocState<MyHomePage, HomeBloc> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SizedBox(
+              height: 20,
+            ),
             TextFormField(onChanged: bloc.setPalindromeString),
-            Text('Is palindrome=${screenData.isPalindrome}'),
+            Spacer(),
+            OutlinedButton(
+              onPressed: _validatePalindrome,
+              child: Text("Get registration"),
+            )
           ],
         ),
       );
