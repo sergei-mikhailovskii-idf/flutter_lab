@@ -16,7 +16,7 @@ Dio dioBuilder(
     connectTimeout: timeout,
     receiveTimeout: timeout,
     sendTimeout: timeout,
-    headers: headers,
+    headers: headersMap,
     contentType: 'application/json',
   );
 
