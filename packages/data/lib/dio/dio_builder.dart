@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
+import '../CancelInterceptor.dart';
+
 Dio dioBuilder(
   String baseUrl, {
   Map<String, dynamic>? headers,
@@ -22,5 +24,6 @@ Dio dioBuilder(
 
   final dio = Dio(options);
   dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+  // dio.interceptors.add(CancelInterceptor());
   return dio;
 }
