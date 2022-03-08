@@ -12,3 +12,8 @@ dependencies:
   domain:
     path: ../domain
   dio: ^4.0.4
+  retrofit: ^3.0.1
+
+dev_dependencies:
+  retrofit_generator: ^4.0.1
+  build_runner: ^2.1.7

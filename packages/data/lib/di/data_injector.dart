@@ -1,6 +1,7 @@
 import 'package:data/dio/dio_builder.dart';
 import 'package:data/repository/network_repository.dart';
 import 'package:data/service/api_service.dart';
+import 'package:data/service/retrofit_api_service.dart';
 import 'package:dio/dio.dart';
 import 'package:domain/repository/network_repository.dart';
 import 'package:get_it/get_it.dart';
@@ -19,7 +20,7 @@ void _initApiModule() {
 void _initRepositoryModule() {
   GetIt.I.registerFactory<INetworkRepository>(
     () => NetworkRepository(
-      GetIt.I.get<ApiService>(),
+      GetIt.I.get<RetrofitApiService>(),
       GetIt.I.get<CancelToken>(),
     ),
   );
@@ -35,5 +36,8 @@ void _initDioModule() {
 void _initServiceModule() {
   GetIt.I.registerSingleton(
     ApiService(GetIt.I.get<Dio>(instanceName: "plazo_url")),
+  );
+  GetIt.I.registerSingleton(
+    RetrofitApiService(GetIt.I.get<Dio>(instanceName: "plazo_url")),
   );
 }
