@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:presentation/base/bloc_state.dart';
 import 'package:presentation/base/stream_platform_stack_content.dart';
-import 'package:presentation/screen/home_bloc.dart';
-import 'package:presentation/screen/home_data.dart';
+import 'package:presentation/screen/home/home_bloc.dart';
+import 'package:presentation/screen/home/home_data.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
