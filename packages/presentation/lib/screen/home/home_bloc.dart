@@ -1,12 +1,20 @@
 import 'package:domain/usecase/get_registration_use_case.dart';
+import 'package:domain/usecase/send_registration_use_case.dart';
 import 'package:presentation/base/base_bloc.dart';
 import 'package:presentation/screen/home/home_data.dart';
+import 'package:presentation/screen/home/home_view_mapper.dart';
 
 abstract class HomeBloc extends BaseBloc {
   factory HomeBloc(
-    GetRegistrationStepUseCase palindromeUseCase,
+    GetRegistrationStepUseCase getRegistrationStepUseCase,
+    SendRegistrationStepUseCase sendRegistrationStepUseCase,
+    HomeViewMapper viewMapper,
   ) =>
-      _HomeBloc(palindromeUseCase);
+      _HomeBloc(
+        getRegistrationStepUseCase,
+        sendRegistrationStepUseCase,
+        viewMapper,
+      );
 
   void getRegistration();
 
@@ -19,11 +27,17 @@ abstract class HomeBloc extends BaseBloc {
 
 class _HomeBloc extends BlocImpl implements HomeBloc {
   final GetRegistrationStepUseCase _getRegistrationStepUseCase;
+  final SendRegistrationStepUseCase _sendRegistrationStepUseCase;
+  final HomeViewMapper _viewMapper;
   final _screenData = HomeData.init();
 
   bool _isLoading = false;
 
-  _HomeBloc(this._getRegistrationStepUseCase);
+  _HomeBloc(
+    this._getRegistrationStepUseCase,
+    this._sendRegistrationStepUseCase,
+    this._viewMapper,
+  );
 
   @override
   void initState() {
@@ -44,13 +58,14 @@ class _HomeBloc extends BlocImpl implements HomeBloc {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    _getRegistrationStepUseCase.dispose();
-  }
+  void sendRegistration() async {
+    _screenData.registrationStep = 'Loading';
+    _updateData();
 
-  @override
-  void sendRegistration() {
+    final request = _viewMapper.mapScreenDataToRequest(_screenData);
+    await _sendRegistrationStepUseCase(request);
+    _screenData.registrationStep = 'Success';
+    _updateData();
   }
 
   @override
@@ -61,6 +76,12 @@ class _HomeBloc extends BlocImpl implements HomeBloc {
   @override
   void onPhoneChanged(String phone) {
     _screenData.phone = phone;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _getRegistrationStepUseCase.dispose();
   }
 
   void _updateData() {

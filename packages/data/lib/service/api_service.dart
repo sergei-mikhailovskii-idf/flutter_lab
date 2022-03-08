@@ -58,8 +58,14 @@ class _ApiService implements ApiService {
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
-  }) {
-    // TODO: implement post
-    throw UnimplementedError();
-  }
+  }) =>
+      _dio.post(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      );
 }

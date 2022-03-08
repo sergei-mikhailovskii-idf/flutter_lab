@@ -9,7 +9,10 @@ abstract class HomeViewMapper {
 
 class _HomeViewMapper implements HomeViewMapper {
   @override
-  HomeStepFields mapScreenDataToRequest(HomeData screenData) => HomeStepFields(
+  HomeStepFields mapScreenDataToRequest(
+    HomeData screenData,
+  ) =>
+      HomeStepFields(
         screenData.phone,
         screenData.email,
       );

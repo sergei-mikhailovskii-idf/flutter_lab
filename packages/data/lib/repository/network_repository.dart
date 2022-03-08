@@ -25,4 +25,19 @@ class NetworkRepository extends ApiBaseRepositoryImpl
       .then(
         (value) => Future.value(ApiRegistrationResponse.fromJson(value.data)),
       );
+
+  @override
+  Future<RegistrationResponse> sendRegistration(
+    Map<String, dynamic> request,
+  ) =>
+      _service
+          .post(
+            data: request,
+            path: 'mxcc-registration/gateway/REGISTRATION/',
+            cancelToken: _cancelToken,
+          )
+          .then(
+            (value) =>
+                Future.value(ApiRegistrationResponse.fromJson(value.data)),
+          );
 }
