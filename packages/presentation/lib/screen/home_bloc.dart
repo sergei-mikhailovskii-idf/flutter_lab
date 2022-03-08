@@ -8,9 +8,9 @@ abstract class HomeBloc extends BaseBloc {
   ) =>
       _HomeBloc(palindromeUseCase);
 
-  void checkPalindrome();
+  void getRegistration();
 
-  void setPalindromeString(String palindrome);
+  void sendRegistration();
 }
 
 class _HomeBloc extends BlocImpl implements HomeBloc {
@@ -24,17 +24,19 @@ class _HomeBloc extends BlocImpl implements HomeBloc {
   @override
   void initState() {
     super.initState();
-    updateData();
+    _updateData();
   }
 
   @override
-  void checkPalindrome() async {
+  void getRegistration() async {
     _isLoading = true;
-    updateData();
+    _updateData();
 
     final step = await _getRegistrationStepUseCase("");
+    print(step);
+
     _isLoading = false;
-    updateData();
+    _updateData();
   }
 
   @override
@@ -43,14 +45,14 @@ class _HomeBloc extends BlocImpl implements HomeBloc {
     _getRegistrationStepUseCase.dispose();
   }
 
-  void updateData() {
+  @override
+  void sendRegistration() {
+  }
+
+  void _updateData() {
     super.handleData(
       isLoading: _isLoading,
       data: _screenData.copy(),
     );
-  }
-
-  @override
-  void setPalindromeString(String palindrome) {
   }
 }

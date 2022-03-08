@@ -28,10 +28,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState<D> extends BlocState<MyHomePage, HomeBloc> {
-  void _validatePalindrome() {
-    bloc.checkPalindrome();
-  }
-
   @override
   void initState() {
     super.initState();
@@ -45,35 +41,32 @@ class _MyHomePageState<D> extends BlocState<MyHomePage, HomeBloc> {
       children: (blocData) {
         final screenData = blocData.data;
         if (screenData is HomeData) {
-          return _buildResultState(screenData);
+          return SafeArea(child: _buildResultState(screenData));
         }
       },
     );
   }
 
-  Widget _buildResultState(HomeData screenData) => Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 20,
+  Widget _buildResultState(HomeData screenData) => Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
+            child: ElevatedButton(
+              onPressed: bloc.getRegistration,
+              child: Center(
+                child: Text("Get registration"),
+              ),
             ),
-            TextFormField(onChanged: bloc.setPalindromeString),
-            Spacer(),
-            OutlinedButton(
-              onPressed: _validatePalindrome,
-              child: Text("Get registration"),
-            )
-          ],
-        ),
-      );
-
-  Widget _buildComputationState() => Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text('Waiting for a result'),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 32, top: 16, right: 32),
+            child: OutlinedButton(
+              onPressed: bloc.sendRegistration,
+              child: Center(
+                child: Text("Send registration"),
+              ),
+            ),
+          ),
+        ],
       );
 }

@@ -8,9 +8,8 @@ class GetRegistrationStepUseCase implements UseCase<String, Future<String?>> {
   GetRegistrationStepUseCase(this._repository);
 
   @override
-  Future<String?> call(String params) async {
-    _repository.getRegistration(params).then((value) => value.step);
-  }
+  Future<String?> call(String params) async =>
+      _repository.getRegistration(params).then((value) => value.step);
 
   @override
   void dispose() {
