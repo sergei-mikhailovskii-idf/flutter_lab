@@ -1,6 +1,6 @@
 import 'package:domain/usecase/palindrome_usecase.dart';
 import 'package:presentation/base/base_bloc.dart';
-import 'package:presentation/screen/home_data.dart';
+import 'package:presentation/screen/home/home_data.dart';
 
 abstract class HomeBloc extends BaseBloc {
   factory HomeBloc(

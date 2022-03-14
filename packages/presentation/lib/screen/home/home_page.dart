@@ -2,28 +2,24 @@ import 'package:domain/usecase/palindrome_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:presentation/base/bloc_data.dart';
-import 'package:presentation/screen/home_bloc.dart';
-import 'package:presentation/screen/home_data.dart';
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
+import 'package:presentation/navigator/base_arguments.dart';
+import 'package:presentation/screen/app/app_page.dart';
+import 'package:presentation/screen/home/home_bloc.dart';
+import 'package:presentation/screen/home/home_data.dart';
 
 class MyHomePage extends StatefulWidget {
+  static const ROUTE_NAME = '/MyHomePage';
+
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
+
+  static AppPage page({BaseArguments? arguments}) => AppPage(
+        key: const ValueKey(ROUTE_NAME),
+        name: ROUTE_NAME,
+        arguments: arguments,
+        builder: (context) => MyHomePage(title: "title"),
+      );
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -33,7 +29,6 @@ class _MyHomePageState<D> extends State<MyHomePage> {
   HomeBloc bloc = HomeBloc(PalindromeUseCase());
 
   void _incrementCounter() {
-    bloc.checkPalindrome();
   }
 
   @override
