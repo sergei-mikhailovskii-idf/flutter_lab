@@ -1,4 +1,3 @@
-import 'package:domain/usecase/palindrome_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:presentation/base/bloc_data.dart';
@@ -25,10 +24,8 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState<D> extends State<MyHomePage> {
-  HomeBloc bloc = HomeBloc(PalindromeUseCase());
-
-  void _incrementCounter() {
+class _MyHomePageState<D> extends BlocState<MyHomePage, HomeBloc> {
+  void _validatePalindrome() {
     bloc.navigateToDetails();
   }
 
@@ -64,8 +61,8 @@ class _MyHomePageState<D> extends State<MyHomePage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: _validatePalindrome,
+        tooltip: 'Validate',
         child: const Icon(Icons.fingerprint),
       ),
     );

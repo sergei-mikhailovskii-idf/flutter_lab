@@ -1,11 +1,16 @@
+import 'package:domain/repository/network_repository.dart';
+
 import 'usecase.dart';
 
 class PalindromeUseCase implements UseCase<String, Future<bool>> {
+  final INetworkRepository _repository;
+
+  PalindromeUseCase(this._repository);
+
   @override
   Future<bool> call(String params) async {
-    await Future.delayed(Duration(seconds: 5));
-    final isPalindrome = params == params.split('').reversed.toList().join('');
-    return Future.value(isPalindrome);
+    final response = await _repository.checkPalindrome(params);
+    return Future.value(response.isPalindrome);
   }
 
   @override
