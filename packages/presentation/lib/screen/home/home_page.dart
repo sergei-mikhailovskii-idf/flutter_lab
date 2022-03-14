@@ -29,6 +29,7 @@ class _MyHomePageState<D> extends State<MyHomePage> {
   HomeBloc bloc = HomeBloc(PalindromeUseCase());
 
   void _incrementCounter() {
+    bloc.navigateToDetails();
   }
 
   @override

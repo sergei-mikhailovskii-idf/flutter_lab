@@ -1,5 +1,6 @@
 import 'package:domain/usecase/palindrome_usecase.dart';
 import 'package:presentation/base/base_bloc.dart';
+import 'package:presentation/screen/details/details_page.dart';
 import 'package:presentation/screen/home/home_data.dart';
 
 abstract class HomeBloc extends BaseBloc {
@@ -11,6 +12,8 @@ abstract class HomeBloc extends BaseBloc {
   void checkPalindrome();
 
   void setPalindromeString(String palindrome);
+
+  void navigateToDetails();
 }
 
 class _HomeBloc extends BlocImpl implements HomeBloc {
@@ -45,15 +48,20 @@ class _HomeBloc extends BlocImpl implements HomeBloc {
     _palindromeUseCase.dispose();
   }
 
+  @override
+  void setPalindromeString(String palindrome) {
+    _screenData.palindromeInput = palindrome;
+  }
+
+  @override
+  void navigateToDetails() {
+    appNavigator.push(DetailsPage.page());
+  }
+
   void updateData() {
     super.handleData(
       isLoading: _isLoading,
       data: _screenData.copy(),
     );
-  }
-
-  @override
-  void setPalindromeString(String palindrome) {
-    _screenData.palindromeInput = palindrome;
   }
 }

@@ -10,7 +10,6 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-
   final _bloc = AppBloc();
 
   @override
@@ -30,29 +29,26 @@ class _AppState extends State<App> {
     );
   }
 
-  StreamBuilder _home() {
-    return StreamBuilder<BlocData>(
-      stream: _bloc.dataStream,
-      builder: (context, result) {
-        final blocData = result.data;
-        final appData = blocData?.data;
-        if (appData is AppData) {
-          return _content(context, blocData, appData);
-        } else {
-          return Container();
-        }
-      },
-    );
-  }
-
-  Scaffold _content(BuildContext context, BlocData? blocData, AppData appData) {
-    return Scaffold(
-      body: Navigator(
-        onPopPage: (Route<dynamic> route, dynamic result) {
-          return route.didPop(result);
+  StreamBuilder _home() => StreamBuilder<BlocData>(
+        stream: _bloc.dataStream,
+        builder: (context, result) {
+          final blocData = result.data;
+          final appData = blocData?.data;
+          if (appData is AppData) {
+            return _content(context, blocData, appData);
+          } else {
+            return Container();
+          }
         },
+      );
+
+  Navigator _content(
+    BuildContext context,
+    BlocData? blocData,
+    AppData appData,
+  ) =>
+      Navigator(
+        onPopPage: (route, result) => route.didPop(result),
         pages: appData.pages,
-      ),
-    );
-  }
+      );
 }
