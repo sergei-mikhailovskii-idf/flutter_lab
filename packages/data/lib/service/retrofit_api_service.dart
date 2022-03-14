@@ -4,7 +4,7 @@ import 'package:retrofit/retrofit.dart';
 
 part 'retrofit_api_service.g.dart';
 
-@RestApi(baseUrl: "http://10.1.1.30/")
+@RestApi()
 abstract class RetrofitApiService {
   factory RetrofitApiService(Dio dio, {String baseUrl}) = _RetrofitApiService;
 

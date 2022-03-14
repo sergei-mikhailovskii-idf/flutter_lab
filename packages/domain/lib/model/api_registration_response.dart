@@ -1,3 +1,4 @@
+import 'package:domain/enum/status_code.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'registration_response.dart';
@@ -10,8 +11,10 @@ class ApiRegistrationResponse implements RegistrationResponse {
   final Map<String, dynamic>? data;
   @override
   final String? step;
+  @override
+  final StatusCode? statusCode;
 
-  ApiRegistrationResponse(this.data, this.step);
+  ApiRegistrationResponse(this.data, this.step, this.statusCode);
 
   factory ApiRegistrationResponse.fromJson(
     Map<String, dynamic> json,
