@@ -11,6 +11,8 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   final _bloc = AppBloc();
+  final _navigatorKey = GlobalKey<NavigatorState>();
+  final globalRootNavKey = GlobalKey<NavigatorState>();
 
   @override
   void initState() {
@@ -22,6 +24,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      navigatorKey: globalRootNavKey,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -48,7 +51,12 @@ class _AppState extends State<App> {
     AppData appData,
   ) =>
       Navigator(
-        onPopPage: (route, result) => route.didPop(result),
-        pages: appData.pages,
+        key: _navigatorKey,
+        onPopPage: (route, result) {
+          _bloc.handleRemoveRouteSettings(route.settings);
+          return route.didPop(result);
+        },
+        /// very important moment!!!
+        pages: appData.pages.toList(),
       );
 }

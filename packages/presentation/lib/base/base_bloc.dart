@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
+import 'package:get_it/get_it.dart';
 import 'package:presentation/base/bloc_data.dart';
 import 'package:presentation/navigator/app_navigator.dart';
 
@@ -17,7 +18,7 @@ class BlocImpl<D> implements BaseBloc<D> {
   Stream<BlocData<D?>> get dataStream => _data.stream;
 
   @protected
-  final AppNavigator appNavigator = AppNavigatorImpl();
+  final appNavigator = GetIt.I.get<AppNavigator>();
 
   final _blocData = BlocData.init();
 

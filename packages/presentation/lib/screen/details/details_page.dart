@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:presentation/base/bloc_state.dart';
 import 'package:presentation/navigator/base_arguments.dart';
 import 'package:presentation/screen/app/app_page.dart';
+
+import 'details_bloc.dart';
 
 class DetailsPage extends StatefulWidget {
   static const ROUTE_NAME = '/DetailsPage';
@@ -17,12 +20,17 @@ class DetailsPage extends StatefulWidget {
       );
 }
 
-class _DetailsPageState extends State<DetailsPage> {
+class _DetailsPageState extends BlocState<DetailsPage, DetailsBloc> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.blue,
+        child: OutlinedButton(
+          onPressed: () => {
+            bloc.back(),
+          },
+          child: Text('Back'),
+        ),
       ),
     );
   }
