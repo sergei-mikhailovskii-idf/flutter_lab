@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:presentation/base/bloc_data.dart';
 import 'package:presentation/base/bloc_state.dart';
 import 'package:presentation/navigator/base_arguments.dart';
@@ -10,15 +11,13 @@ import 'package:presentation/screen/home/home_data.dart';
 class MyHomePage extends StatefulWidget {
   static const ROUTE_NAME = '/MyHomePage';
 
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const MyHomePage({Key? key}) : super(key: key);
 
   static AppPage page({BaseArguments? arguments}) => AppPage(
         key: const ValueKey(ROUTE_NAME),
         name: ROUTE_NAME,
         arguments: arguments,
-        builder: (context) => MyHomePage(title: "title"),
+        builder: (context) => MyHomePage(),
       );
 
   @override
@@ -40,7 +39,7 @@ class _MyHomePageState<D> extends BlocState<MyHomePage, HomeBloc> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(AppLocalizations.of(context)!.appTitle),
       ),
       body: StreamBuilder(
         stream: bloc.dataStream,
@@ -74,7 +73,7 @@ class _MyHomePageState<D> extends BlocState<MyHomePage, HomeBloc> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextFormField(onChanged: bloc.setPalindromeString),
-            Text('Is palindrome=${screenData.isPalindrome}'),
+            Text(AppLocalizations.of(context)!.textWithParam('параметром')),
           ],
         ),
       );
