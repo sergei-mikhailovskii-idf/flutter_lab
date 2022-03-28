@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "924946614610",
+    "project_id": "labtest-e35ad",
+    "storage_bucket": "labtest-e35ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924946614610:android:053d48ad0c5b331906928b",
+        "android_client_info": {
+          "package_name": "com.idfinance.flutter_lab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "924946614610-j9dggkl9dp0bstgrisdijus97bfqruap.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWNli4zUnmXdbw-Q0idLupTc4gDmDQqZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "924946614610-j9dggkl9dp0bstgrisdijus97bfqruap.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

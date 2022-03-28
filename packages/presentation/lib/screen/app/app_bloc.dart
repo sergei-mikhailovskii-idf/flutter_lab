@@ -3,17 +3,22 @@ import 'package:presentation/base/base_bloc.dart';
 import 'package:presentation/navigator/base_page.dart';
 import 'package:presentation/screen/home/home_page.dart';
 
+import '../../internal/service/analytics_service.dart';
 import 'app_data.dart';
 import 'app_page.dart';
 
 abstract class AppBloc extends BaseBloc {
-  factory AppBloc() => _AppBloc();
+  factory AppBloc(AnalyticsService analyticsService) =>
+      _AppBloc(analyticsService);
 
   void handleRemoveRouteSettings(RouteSettings value);
 }
 
 class _AppBloc extends BlocImpl implements AppBloc {
   final _appData = AppData.init();
+  final AnalyticsService _analyticsService;
+
+  _AppBloc(this._analyticsService);
 
   @override
   void initState() {
@@ -29,6 +34,8 @@ class _AppBloc extends BlocImpl implements AppBloc {
   }
 
   void _updateData() {
+    final currentPage = _currentPage();
+    _analyticsService.trackScreen(name: currentPage.name);
     super.handleData(data: _appData);
   }
 
@@ -59,7 +66,7 @@ class _AppBloc extends BlocImpl implements AppBloc {
 
   void _popOldAndPush(BasePage page) {
     final oldIndex = _appData.pages.indexWhere(
-          (element) => element.name == page.name,
+      (element) => element.name == page.name,
     );
     if (oldIndex != -1) {
       _appData.pages.removeAt(oldIndex);

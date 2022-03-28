@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:presentation/base/bloc_data.dart';
+import 'package:get_it/get_it.dart';
 import 'package:presentation/screen/app/app_bloc.dart';
 
 import 'app_data.dart';
@@ -12,7 +13,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  final _bloc = AppBloc();
+  final _bloc = GetIt.I.get<AppBloc>();
   final _navigatorKey = GlobalKey<NavigatorState>();
   final globalRootNavKey = GlobalKey<NavigatorState>();
 
