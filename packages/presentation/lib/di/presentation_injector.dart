@@ -40,6 +40,7 @@ void _initNavigationModule() {
 void _initHomeScreenModule() {
   GetIt.I.registerFactory<HomeBloc>(
     () => HomeBloc(
+      GetIt.I.get<AnalyticsService>(),
       GetIt.I.get<PalindromeUseCase>(),
     ),
   );

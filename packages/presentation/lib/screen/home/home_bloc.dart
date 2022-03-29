@@ -3,11 +3,14 @@ import 'package:presentation/base/base_bloc.dart';
 import 'package:presentation/screen/details/details_page.dart';
 import 'package:presentation/screen/home/home_data.dart';
 
+import '../../internal/service/analytics_service.dart';
+
 abstract class HomeBloc extends BaseBloc {
   factory HomeBloc(
+    AnalyticsService analyticsService,
     PalindromeUseCase palindromeUseCase,
   ) =>
-      _HomeBloc(palindromeUseCase);
+      _HomeBloc(analyticsService, palindromeUseCase);
 
   void checkPalindrome();
 
@@ -17,12 +20,14 @@ abstract class HomeBloc extends BaseBloc {
 }
 
 class _HomeBloc extends BlocImpl implements HomeBloc {
+  final AnalyticsService _analyticsService;
   final PalindromeUseCase _palindromeUseCase;
+
   final _screenData = HomeData.init();
 
   bool _isLoading = false;
 
-  _HomeBloc(this._palindromeUseCase);
+  _HomeBloc(this._analyticsService, this._palindromeUseCase);
 
   @override
   void initState() {
@@ -55,6 +60,7 @@ class _HomeBloc extends BlocImpl implements HomeBloc {
 
   @override
   void navigateToDetails() {
+    _analyticsService.trackCustomEvent(event: "show_details_clicked");
     appNavigator.push(DetailsPage.page());
   }
 
