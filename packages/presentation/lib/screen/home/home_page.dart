@@ -27,7 +27,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState<D> extends BlocState<MyHomePage, HomeBloc> {
   void _validatePalindrome() {
     // bloc.navigateToDetails();
-    FirebaseCrashlytics.instance.crash();
+
+    /// imitate crash
+    // FirebaseCrashlytics.instance.crash();
+
+    /// firestore
+    bloc.readWriteFirestore();
   }
 
   @override

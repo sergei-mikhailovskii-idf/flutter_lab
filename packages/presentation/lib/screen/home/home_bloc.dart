@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:domain/usecase/palindrome_usecase.dart';
 import 'package:presentation/base/base_bloc.dart';
 import 'package:presentation/screen/details/details_page.dart';
@@ -17,6 +18,8 @@ abstract class HomeBloc extends BaseBloc {
   void setPalindromeString(String palindrome);
 
   void navigateToDetails();
+
+  void readWriteFirestore();
 }
 
 class _HomeBloc extends BlocImpl implements HomeBloc {
@@ -32,6 +35,7 @@ class _HomeBloc extends BlocImpl implements HomeBloc {
   @override
   void initState() {
     super.initState();
+    _readData();
     updateData();
   }
 
@@ -62,6 +66,31 @@ class _HomeBloc extends BlocImpl implements HomeBloc {
   void navigateToDetails() {
     _analyticsService.trackCustomEvent(event: "show_details_clicked");
     appNavigator.push(DetailsPage.page());
+  }
+
+  @override
+  void readWriteFirestore() {
+    FirebaseFirestore.instance
+        .collection('users')
+        .add(
+          {
+            'name': 'Sergei',
+          },
+        )
+        .then((value) => print('success'))
+        .onError((error, stackTrace) => print('error'));
+  }
+
+  void _readData() {
+    FirebaseFirestore.instance
+        .collection('users')
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((e) => e.data()['name']).toList())
+        .listen(
+      (event) {
+        print(event);
+      },
+    );
   }
 
   void updateData() {
