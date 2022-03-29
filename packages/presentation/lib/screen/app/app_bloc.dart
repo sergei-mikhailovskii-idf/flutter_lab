@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/widgets.dart';
 import 'package:presentation/base/base_bloc.dart';
 import 'package:presentation/navigator/base_page.dart';
@@ -24,6 +25,7 @@ class _AppBloc extends BlocImpl implements AppBloc {
   void initState() {
     super.initState();
     _initNavHandler();
+    _initMessaging();
     _updateData();
   }
 
@@ -31,6 +33,13 @@ class _AppBloc extends BlocImpl implements AppBloc {
   void handleRemoveRouteSettings(RouteSettings value) {
     _appData.pages.remove(value);
     _updateData();
+  }
+
+  void _initMessaging() {
+    FirebaseMessaging.instance.getToken().then((value) => print('token=$value'));
+    FirebaseMessaging.onMessage.listen((event) {
+      print('Event=$event');
+    });
   }
 
   void _updateData() {
