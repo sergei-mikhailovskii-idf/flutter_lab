@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:presentation/base/bloc_data.dart';
@@ -25,7 +26,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState<D> extends BlocState<MyHomePage, HomeBloc> {
   void _validatePalindrome() {
-    bloc.navigateToDetails();
+    // bloc.navigateToDetails();
+    FirebaseCrashlytics.instance.crash();
   }
 
   @override
