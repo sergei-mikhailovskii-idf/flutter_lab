@@ -9,7 +9,7 @@ import 'package:mockito/mockito.dart';
 import 'network_repository_test.mocks.dart';
 
 /// flutter packages pub run build_runner build lib
-@GenerateMocks([ApiService, CancelToken])
+@GenerateMocks([ApiService, CancelToken, DioError])
 void main() {
   group(
     'getRegistration',
@@ -72,7 +72,9 @@ void main() {
           );
 
           expect(
-              () async => await repository.getRegistration(), throwsA(error));
+            () async => await repository.getRegistration(),
+            throwsA(error),
+          );
         },
       );
     },

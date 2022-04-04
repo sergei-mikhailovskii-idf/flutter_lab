@@ -14,14 +14,12 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        home: const MyHomePage(),
       );
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -52,6 +50,7 @@ class _MyHomePageState<D> extends BlocState<MyHomePage, HomeBloc> {
           Padding(
             padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
             child: ElevatedButton(
+              key: Key('btn-get-registration'),
               onPressed: bloc.getRegistration,
               child: Center(
                 child: Text("Get registration"),

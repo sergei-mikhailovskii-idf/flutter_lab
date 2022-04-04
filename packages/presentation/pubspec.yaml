@@ -12,3 +12,9 @@ dependencies:
 
   data:
     path: ../data
+
+dev_dependencies:
+  mockito: ^5.1.0
+  build_runner: ^2.1.8
+  flutter_test:
+    sdk: flutter
