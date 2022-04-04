@@ -49,6 +49,31 @@ void main() {
           );
         },
       );
+      test(
+        'returns an error if the api call completes with error',
+        () async {
+          final cancelToken = MockCancelToken();
+          final apiService = MockApiService();
+          final repository = NetworkRepository(apiService, cancelToken);
+
+          final error =               DioError(
+            requestOptions: RequestOptions(path: ''),
+            response: Response(
+              statusCode: 404,
+              requestOptions: RequestOptions(path: ''),
+            ),
+          );
+
+          when(apiService.get(
+            path: anyNamed('path'),
+            cancelToken: anyNamed('cancelToken'),
+          )).thenAnswer(
+            (realInvocation) => Future.error(error),
+          );
+
+          expect(() async => await repository.getRegistration(), throwsA(error));
+        },
+      );
     },
   );
 }
