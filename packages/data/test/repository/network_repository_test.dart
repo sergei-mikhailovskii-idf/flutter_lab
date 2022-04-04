@@ -22,8 +22,8 @@ void main() {
           final repository = NetworkRepository(apiService, cancelToken);
 
           when(apiService.get(
-            path: 'mxcc-registration/gateway/REGISTRATION/',
-            cancelToken: cancelToken,
+            path: anyNamed('path'),
+            cancelToken: anyNamed('cancelToken'),
           )).thenAnswer(
             (realInvocation) async => Response(
               data: """
