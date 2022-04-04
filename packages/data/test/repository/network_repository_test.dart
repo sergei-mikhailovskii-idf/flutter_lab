@@ -56,7 +56,7 @@ void main() {
           final apiService = MockApiService();
           final repository = NetworkRepository(apiService, cancelToken);
 
-          final error =               DioError(
+          final error = DioError(
             requestOptions: RequestOptions(path: ''),
             response: Response(
               statusCode: 404,
@@ -71,7 +71,8 @@ void main() {
             (realInvocation) => Future.error(error),
           );
 
-          expect(() async => await repository.getRegistration(), throwsA(error));
+          expect(
+              () async => await repository.getRegistration(), throwsA(error));
         },
       );
     },
